@@ -3,6 +3,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 from langchain.agents import AgentType, initialize_agent, load_tools
 from langchain.chains import LLMChain, SequentialChain
@@ -57,13 +58,25 @@ chain = SequentialChain(
 )
 
 
+class CountryName(BaseModel):
+    country_name: str
+
+
+class Business_Analysis(BaseModel):
+    country_name: str
+    current_year: int
+    business_idea: str
+    business_analysis: str
+    financial_data: str
+
+
 @app.post("/", response_model=dict, status_code=200)
-def business(country_name: str):
+def business(country_name: CountryName) -> Business_Analysis:
     result = chain({"country_name": country_name, "current_year": current_year})
     result["financial_data"] = agent.run(
         financial_prompt.format(
             business_idea=result["business_idea"],
-            country_name=country_name,
+            country_name=country_name.country_name,
             current_year=current_year,
         )
     )
