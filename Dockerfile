@@ -42,4 +42,4 @@ COPY main.py main.py
 EXPOSE 80
 
 # Run the application.
-CMD uvicorn main:app --host 0.0.0.0 --port 80
+CMD uvicorn main:app --host 0.0.0.0 --port $PORT
