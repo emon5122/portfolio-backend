@@ -2,7 +2,7 @@ from datetime import datetime
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
-from fastapi.middleware import cors
+from fastapi.middleware.cors import CORSMiddleware
 
 from langchain.agents import AgentType, initialize_agent, load_tools
 from langchain.chains import LLMChain, SequentialChain
@@ -11,7 +11,13 @@ from langchain.prompts import PromptTemplate
 
 load_dotenv()
 app = FastAPI()
-app.add_middleware(cors.CORSMiddleware, allow_origins=["*"])
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 openai_llm = OpenAI(temperature=0.6)
 google_repo_id = repo_id = "google/flan-t5-xxl"
 current_year = datetime.now().year
