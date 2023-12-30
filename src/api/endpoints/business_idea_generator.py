@@ -1,24 +1,16 @@
 from datetime import datetime
 
 from dotenv import load_dotenv
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from fastapi import APIRouter, status
 
+from api.validators.business_idea import Business_Analysis, CountryName
 from langchain.agents import AgentType, initialize_agent, load_tools
 from langchain.chains import LLMChain, SequentialChain
 from langchain.llms import HuggingFaceHub, OpenAI
 from langchain.prompts import PromptTemplate
 
+router = APIRouter(prefix="/business-idea-generator", tags=["business-idea-generator"])
 load_dotenv()
-app = FastAPI()
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 openai_llm = OpenAI(temperature=0.6)
 google_repo_id = repo_id = "google/flan-t5-xxl"
 current_year = datetime.now().year
@@ -58,19 +50,7 @@ chain = SequentialChain(
 )
 
 
-class CountryName(BaseModel):
-    country_name: str
-
-
-class Business_Analysis(BaseModel):
-    country_name: str
-    current_year: int
-    business_idea: str
-    business_analysis: str
-    financial_data: str
-
-
-@app.post("/", response_model=dict, status_code=200)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=Business_Analysis)
 def business(country_name: CountryName) -> Business_Analysis:
     result = chain({"country_name": country_name, "current_year": current_year})
     result["financial_data"] = agent.run(
