@@ -18,29 +18,11 @@ all_words = []
 tags = []
 xy = []
 intents = data.get("intents", [])
-commands = data.get("commands", [])
-personality_traits = data.get("personality_traits", [])
 for intent in intents:
     tag = intent["tag"]
     tags.append(tag)
     for pattern in intent["patterns"]:
         w = tokenize(pattern)
-        all_words.extend(w)
-        xy.append((w, tag))
-
-for command in commands:
-    tag = command["action"]
-    tags.append(tag)
-    for pattern in command["patterns"]:
-        w = tokenize(pattern)
-        all_words.extend(w)
-        xy.append((w, tag))
-
-for trait in personality_traits:
-    tag = trait["trait"]
-    tags.append(tag)
-    for response in trait["responses"]:
-        w = tokenize(response)
         all_words.extend(w)
         xy.append((w, tag))
 
