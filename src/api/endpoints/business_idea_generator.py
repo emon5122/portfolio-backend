@@ -2,12 +2,12 @@ from datetime import datetime
 
 from dotenv import load_dotenv
 from fastapi import APIRouter, status
-
-from api.validators.business_idea import Business_Analysis, CountryName
 from langchain.agents import AgentType, initialize_agent, load_tools
 from langchain.chains import LLMChain, SequentialChain
 from langchain.llms import HuggingFaceHub, OpenAI
 from langchain.prompts import PromptTemplate
+
+from api.validators.business_idea import Business_Analysis, CountryName
 
 router = APIRouter(prefix="/business-idea-generator", tags=["business-idea-generator"])
 load_dotenv()
@@ -50,9 +50,11 @@ chain = SequentialChain(
 )
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED, response_model=Business_Analysis)
+@router.post("/", status_code=status.HTTP_200_OK, response_model=Business_Analysis)
 def business(country_name: CountryName) -> Business_Analysis:
-    result = chain({"country_name": country_name, "current_year": current_year})
+    result = chain(
+        {"country_name": country_name.country_name, "current_year": current_year}
+    )
     result["financial_data"] = agent.run(
         financial_prompt.format(
             business_idea=result["business_idea"],
