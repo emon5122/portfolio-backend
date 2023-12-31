@@ -46,6 +46,8 @@ def Chat(chat: Chat, db: Session = Depends(get_db)):
     prob = probs[0][predicted.item()]
     if prob.item() > 0.75:
         db_tags = db.query(Tags).filter(Tags.tag == tag).first()
+        if not db_tags:
+            return {"response": "I don't understand"}
         responses = [r for r in db_tags.responses]
         return random.choice(responses)
     else:
