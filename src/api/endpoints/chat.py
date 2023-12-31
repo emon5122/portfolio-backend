@@ -45,8 +45,8 @@ def Chat(chat: Chat, db: Session = Depends(get_db)):
     probs = torch.softmax(output, dim=1)
     prob = probs[0][predicted.item()]
     if prob.item() > 0.75:
-        tags = db.query(Tags).filter(Tags.tag == tag).first()
-        responses = [r for r in tags.responses]
+        db_tags = db.query(Tags).filter(Tags.tag == tag).first()
+        responses = [r for r in db_tags.responses]
         return random.choice(responses)
     else:
         return {"response": "I don't understand"}
