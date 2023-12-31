@@ -12,12 +12,13 @@ from utils.model import NeuralNet
 from utils.nltk_utils import bag_of_words, tokenize
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+map_location = None if torch.cuda.is_available() else torch.device("cpu")
 
 
 with open(f"{ROOT_PATH}/data.json", "r") as f:
     data = json.load(f)
 MODEL = f"{ROOT_PATH}/data.pth"
-model_data = torch.load(MODEL)
+model_data = torch.load(MODEL, map_location=map_location)
 input_size = model_data["input_size"]
 hidden_size = model_data["hidden_size"]
 output_size = model_data["output_size"]

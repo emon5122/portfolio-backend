@@ -19,6 +19,22 @@
             ]
         },
         {
+            "tag": "introduce",
+            "patterns": [
+                "Who are you?",
+                "What's your name?",
+                "What is your name?",
+                "May I know your name, please?",
+                "Tell me your name",
+                "Can you introduce yourself?"
+            ],
+            "responses": [
+                "Hey, My name is Istiak Hassan Emon. I'm here to help you.",
+                "I'm Istiak Hassan Emon. I'm here to help you.",
+                "Istiak Hassan Emon, I'm here to help you."
+            ]
+        },
+        {
             "tag": "goodbye",
             "patterns": [
                 "Bye",

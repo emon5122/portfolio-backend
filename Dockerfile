@@ -36,10 +36,11 @@ RUN pip3 install -r requirements.txt
 USER appuser
 
 # Copy the source code into the container.
-COPY main.py main.py
+COPY . .
+
 
 # Expose the port that the application listens on.
 EXPOSE 80
 
 # Run the application.
-CMD uvicorn main:app --host 0.0.0.0 --port $PORT
+CMD uvicorn --app-dir src main:app --host 0.0.0.0 --port $PORT

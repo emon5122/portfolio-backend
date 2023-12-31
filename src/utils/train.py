@@ -1,5 +1,8 @@
 import json
 
+# from core.config import ROOT_PATH
+from pathlib import Path
+
 import numpy as np
 import torch
 import torch.nn as nn
@@ -7,7 +10,8 @@ from model import NeuralNet
 from nltk_utils import bag_of_words, stem, tokenize
 from torch.utils.data import DataLoader, Dataset
 
-from core.config import ROOT_PATH
+FILE = Path(__file__).resolve()
+ROOT_PATH = FILE.parents[2]
 
 IGNORED_CHARS = ["?", "!", ".", ","]
 with open(f"{ROOT_PATH}/data.json", "r") as f:
@@ -72,7 +76,7 @@ class ChatDataset(Dataset):
 
 
 dataset = ChatDataset()
-train_loader = DataLoader(dataset=dataset, batch_size=8, shuffle=True, num_workers=2)
+train_loader = DataLoader(dataset=dataset, batch_size=8, shuffle=True, num_workers=0)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # hyperparameters
 num_epochs = 1000
@@ -107,5 +111,5 @@ data = {
     "all_words": all_words,
     "tags": tags,
 }
-torch.save(data, "data.pth")
+torch.save(data, f"{ROOT_PATH}/data.pth")
 print("training complete. file saved to data.pth")
