@@ -1,13 +1,12 @@
-black==23.12.1
 fastapi==0.108.0
 google_search_results==2.4.2
 huggingface-hub==0.20.1
-isort==5.13.2
 langchain==0.0.352
 nltk==3.8.1
 openai==1.6.1
 psycopg2-binary==2.9.9
 python-dotenv==1.0.0
+python-jose==3.3.0
 torch==2.1.2
 uvicorn==0.25.0
 wikipedia==1.4.0

@@ -10,7 +10,11 @@ except AttributeError:
     pass
 else:
     ssl._create_default_https_context = _create_unverified_https_context
-nltk.download("punkt")
+try:
+    nltk.data.find("tokenizers/punkt")
+except (LookupError, OSError):
+    nltk.download("punkt", quiet=True)
+
 stemmer = PorterStemmer()
 
 
