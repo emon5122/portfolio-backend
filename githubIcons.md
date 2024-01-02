@@ -66,7 +66,7 @@
     - ![Language Card with Hidden Progress Bars](https://github-readme-stats.vercel.app/api/top-langs/?username=emon5122&hide_progress=true)
 
 22. WakaTime Stats Card:
-    - ![WakaTime Stats Card](https://github-readme-stats.vercel.app/api/wakatime?username=emon5122)
+    - ![WakaTime Stats Card](https://github-readme-stats.vercel.app/api/wakatime?username=@emon5122)
 
 23. Compact Layout for WakaTime Stats Card:
-    - ![Compact Layout for WakaTime Stats Card](https://github-readme-stats.vercel.app/api/wakatime?username=emon5122&layout=compact)
+    - ![Compact Layout for WakaTime Stats Card](https://github-readme-stats.vercel.app/api/wakatime?username=@emon5122&layout=compact)
