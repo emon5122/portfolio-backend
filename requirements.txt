@@ -12,5 +12,5 @@ python-jose==3.3.0
 python-multipart==0.0.6
 torch==2.1.2
 transformers==4.36.2
-uvicorn==0.25.0
+uvicorn==0.32.0
 wikipedia==1.4.0
