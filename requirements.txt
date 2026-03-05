@@ -1,4 +1,4 @@
-einops==0.7.0
+einops==0.8.2
 fastapi==0.108.0
 google_search_results==2.4.2
 huggingface-hub==0.20.1
